@@ -13,7 +13,7 @@ const sportsData = {
     tennis: {
         title: "Tennis",
         focus: "Shoulders & Rotator Cuff",
-        image: "body-tennis.png.png",
+        image: "body-tennis.png",
         exercises: [
             "Arm Circles - Start small, get bigger",
             "Band Pull-Aparts - Squeeze shoulder blades",
@@ -33,7 +33,7 @@ const sportsData = {
     basketball: {
         title: "Basketball",
         focus: "Ankles & Landing Mechanics",
-        image: "body-soccer.png",
+        image: "body-soccer.png", // Fallback
         exercises: [
             "Ankle Rotations - Both directions",
             "Jump Squats - Land softly/silently",
@@ -45,20 +45,65 @@ const sportsData = {
 let currentRoutine = [];
 let currentIndex = 0;
 let timerInterval = null;
+let isPaused = false; 
 
-// 2. Load Visuals
-function loadSport() {
-    const select = document.getElementById('sport-select');
-    const selectedSport = select.value;
+// 2. MAIN FUNCTION: Generate Plan & Risk
+function generatePlan() {
+    // A. Get inputs
+    const sportSelect = document.getElementById('sport-select');
+    const selectedSport = sportSelect.value;
+    
+    // Validation
+    if (!selectedSport) {
+        alert("Please select a sport first!");
+        return;
+    }
+
+    // B. Calculate Risk
+    const injuryScore = parseInt(document.getElementById('q-injury').value);
+    const freqScore = parseInt(document.getElementById('q-freq').value);
+    const warmupScore = parseInt(document.getElementById('q-warmup').value);
+
+    let totalRisk = 10 + injuryScore + freqScore + warmupScore;
+    if (totalRisk > 95) totalRisk = 95;
+
+    // C. Update Risk Bar (Bottom)
+    const resultBar = document.getElementById('risk-result-bar');
+    const fill = document.getElementById('risk-fill');
+    const text = document.getElementById('risk-percent-text');
+
+    resultBar.classList.remove('hidden');
+    text.innerText = totalRisk + "%";
+    
+    setTimeout(() => {
+        fill.style.width = totalRisk + "%";
+        if (totalRisk < 30) {
+            fill.style.backgroundColor = "#2ecc71"; // Green
+            text.style.color = "#2ecc71";
+        } else if (totalRisk < 60) {
+            fill.style.backgroundColor = "#f1c40f"; // Orange
+            text.style.color = "#f1c40f";
+        } else {
+            fill.style.backgroundColor = "#ff4757"; // Red
+            text.style.color = "#ff4757";
+        }
+    }, 100);
+
+    // D. Load The Dashboard (Middle)
+    loadSportData(selectedSport);
+}
+
+// Helper to load the heatmap and list
+function loadSportData(sportName) {
     const dashboard = document.getElementById('dashboard');
     const imageDisplay = document.getElementById('body-image');
     const focusText = document.getElementById('focus-area');
     const list = document.getElementById('exercise-list');
 
-    if (sportsData[selectedSport]) {
-        const data = sportsData[selectedSport];
+    if (sportsData[sportName]) {
+        const data = sportsData[sportName];
         focusText.innerText = data.focus;
-        imageDisplay.src = data.image;
+        imageDisplay.src = data.image; 
 
         list.innerHTML = ''; 
         data.exercises.forEach(exercise => {
@@ -68,10 +113,13 @@ function loadSport() {
         });
 
         dashboard.classList.remove('hidden');
+        
+        // Scroll slightly so user sees the new content
+        dashboard.scrollIntoView({ behavior: 'smooth' });
     }
 }
 
-// 3. Read Overview (Optional)
+// 3. Read Overview
 function speakRoutine() {
     window.speechSynthesis.cancel();
     const sport = document.getElementById('sport-select').value;
@@ -81,88 +129,70 @@ function speakRoutine() {
     }
 }
 
+// 4. Guided Workout
 function startGuidedWorkout() {
     const sport = document.getElementById('sport-select').value;
     if (!sport) return;
 
-    // 1. Setup Data
     currentRoutine = sportsData[sport].exercises;
     currentIndex = 0;
 
-    // 2. Show Overlay
     document.getElementById('workout-overlay').classList.remove('hidden');
-
-    // 3. Start First Exercise
     runExerciseStep();
 }
 
-let isPaused = false; 
-
-function runExerciseStep() 
-{
-    // Check if finished
+function runExerciseStep() {
     if (currentIndex >= currentRoutine.length) {
         finishWorkout();
         return;
     }
 
-    // Reset Pause State for new exercise
     isPaused = false;
     document.getElementById('pause-btn').innerText = "❚❚ Pause";
 
-    // Get current exercise text
     const rawText = currentRoutine[currentIndex];
     let parts = rawText.split("-");
     let name = parts[0];
     let instruction = parts[1] || "Keep steady form";
 
-    // Update UI
     document.getElementById('wo-step-title').innerText = `Exercise ${currentIndex + 1} of ${currentRoutine.length}`;
     document.getElementById('wo-exercise-name').innerText = name;
     document.getElementById('wo-instruction').innerText = instruction;
 
-    // Speak it
     let msg = new SpeechSynthesisUtterance(name + ". " + instruction);
     window.speechSynthesis.speak(msg);
 
-    // Start Timer (15 seconds)
     let timeLeft = 15; 
     document.getElementById('wo-timer').innerText = timeLeft;
 
-    // Clear any old timers
     if (timerInterval) clearInterval(timerInterval);
 
-    // --- THE NEW LOGIC ---
     timerInterval = setInterval(() => {
-        // Only count down if NOT paused
         if (!isPaused) {
             timeLeft--;
             document.getElementById('wo-timer').innerText = timeLeft;
 
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);
-                nextExercise(); // Auto-advance
+                nextExercise(); 
             }
         }
     }, 1000);
 }
 
-// --- NEW FUNCTION ---
 function togglePause() {
-    isPaused = !isPaused; // Switch between true and false
+    isPaused = !isPaused;
     const btn = document.getElementById('pause-btn');
-    
     if (isPaused) {
-        btn.innerText = "Resume";
-        // Optional: Speak "Paused"
+        btn.innerText = "▶ Resume";
         window.speechSynthesis.cancel();
     } else {
-        btn.innerText = "Pause";
+        btn.innerText = "❚❚ Pause";
     }
 }
 
 function nextExercise(manualClick = false) {
-    if(manualClick) clearInterval(timerInterval); // Stop timer if user clicked Next
+    if(manualClick) clearInterval(timerInterval);
     currentIndex++;
     runExerciseStep();
 }
