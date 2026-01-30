@@ -52,11 +52,14 @@ function generatePlan() {
     // A. Get inputs
     const sportSelect = document.getElementById('sport-select');
     const selectedSport = sportSelect.value;
+    const errorBox = document.getElementById('error-box');
     
-    // Validation
+    // --- THIS IS THE VALIDATION LOGIC YOU ASKED FOR ---
     if (!selectedSport) {
-        alert("Please select a sport first!");
-        return;
+        errorBox.classList.remove('hidden'); // Show the red box
+        return; // Stop the code here
+    } else {
+        errorBox.classList.add('hidden'); // Hide it if it's there
     }
 
     // B. Calculate Risk
@@ -93,6 +96,11 @@ function generatePlan() {
     loadSportData(selectedSport);
 }
 
+// --- NEW FUNCTION: Hides error when user picks a sport ---
+function hideError() {
+    document.getElementById('error-box').classList.add('hidden');
+}
+
 // Helper to load the heatmap and list
 function loadSportData(sportName) {
     const dashboard = document.getElementById('dashboard');
@@ -113,8 +121,6 @@ function loadSportData(sportName) {
         });
 
         dashboard.classList.remove('hidden');
-        
-        // Scroll slightly so user sees the new content
         dashboard.scrollIntoView({ behavior: 'smooth' });
     }
 }
@@ -148,7 +154,7 @@ function runExerciseStep() {
     }
 
     isPaused = false;
-    document.getElementById('pause-btn').innerText = "❚❚ Pause";
+    document.getElementById('pause-btn').innerText = "Pause";
 
     const rawText = currentRoutine[currentIndex];
     let parts = rawText.split("-");
@@ -184,10 +190,10 @@ function togglePause() {
     isPaused = !isPaused;
     const btn = document.getElementById('pause-btn');
     if (isPaused) {
-        btn.innerText = "▶ Resume";
+        btn.innerText = "Resume";
         window.speechSynthesis.cancel();
     } else {
-        btn.innerText = "❚❚ Pause";
+        btn.innerText = "Pause";
     }
 }
 
