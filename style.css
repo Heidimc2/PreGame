@@ -62,7 +62,7 @@ select:focus { border-color: #4834d4; outline: none; }
 .analyze-btn {
     width: 100%;
     padding: 15px;
-    background-color: #4834d4; /* Deep Purple */
+    background-color: #ff4757;
     color: white;
     font-size: 18px;
     font-weight: bold;
