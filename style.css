@@ -10,7 +10,7 @@ body {
 }
 
 .app-container {
-    max-width: 800px; /* Limits width on big screens */
+    max-width: 900px;
     width: 100%;
     background: white;
     padding: 30px;
@@ -19,7 +19,7 @@ body {
     text-align: center;
 }
 
-/* Header & Controls */
+/* Header & Inputs */
 h1 { margin-bottom: 5px; color: #111; }
 .badge { background: #ff4757; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.5em; vertical-align: middle; }
 p { color: #666; margin-top: 0; }
@@ -36,51 +36,103 @@ select {
     background: #fff;
 }
 
-/* Dashboard Layout */
+/* Dashboard */
 #dashboard {
     display: flex;
-    flex-wrap: wrap; /* Stacks on mobile, side-by-side on desktop */
+    flex-wrap: wrap;
     gap: 20px;
     margin-top: 20px;
     text-align: left;
 }
-
 .card {
     background: #f8f9fa;
     padding: 20px;
     border-radius: 12px;
-    flex: 1; /* Both cards take equal width */
-    min-width: 250px; /* Don't get too squished */
+    flex: 1;
+    min-width: 280px;
+    border: 1px solid #eee;
 }
 
-/* Visual Heat Map Styles */
+/* Heat Map */
 .image-container {
     background: white;
     border-radius: 8px;
-    padding: 20px;
+    padding: 10px;
     text-align: center;
-    border: 1px solid #eee;
-    height: 300px; /* Fixed height to stop jumping */
+    height: 350px; 
     display: flex;
     align-items: center;
     justify-content: center;
 }
-
-#body-image {
-    max-height: 100%;
-    max-width: 100%;
-}
-
+#body-image { max-height: 100%; max-width: 100%; object-fit: contain; }
 .highlight { color: #ff4757; font-weight: bold; }
 
-/* List Styles */
-ul { padding-left: 20px; }
-li { margin-bottom: 12px; line-height: 1.5; }
+/* Buttons */
+.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+.card-header h3 { margin: 0; }
+
+.voice-btn { background-color: #007bff; color: white; border: none; padding: 6px 12px; border-radius: 20px; cursor: pointer; font-size: 12px; font-weight: bold; }
+
+.start-btn {
+    background-color: #ff4757;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(255, 71, 87, 0.3);
+    transition: transform 0.1s;
+}
+.start-btn:active { transform: scale(0.98); }
+
+/* --- NEW: FULL SCREEN OVERLAY MODE --- */
+.overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: #1e1e1e; /* Dark Mode Background */
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.overlay-content {
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+}
+
+.timer-circle {
+    width: 150px; height: 150px;
+    border: 8px solid #ff4757;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px auto;
+    font-size: 60px;
+    font-weight: bold;
+    background: #2d2d2d;
+    box-shadow: 0 0 20px rgba(255, 71, 87, 0.5);
+}
+
+#wo-exercise-name { font-size: 32px; margin-bottom: 10px; }
+#wo-instruction { font-size: 18px; color: #aaa; margin-bottom: 30px; }
+
+.overlay-controls { display: flex; gap: 20px; justify-content: center; }
+.primary-btn { padding: 10px 30px; background: #ff4757; color: white; border: none; border-radius: 30px; font-size: 18px; cursor: pointer; }
+.secondary-btn { padding: 10px 20px; background: transparent; color: #888; border: 1px solid #555; border-radius: 30px; font-size: 16px; cursor: pointer; }
 
 /* Utilities */
+ul { padding-left: 20px; }
+li { margin-bottom: 12px; line-height: 1.5; }
 .hidden { display: none !important; }
 .fade-in { animation: fadeIn 0.5s; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-/* Footer */
 footer { margin-top: 30px; font-size: 12px; color: #999; }
