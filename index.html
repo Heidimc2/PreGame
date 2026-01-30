@@ -12,7 +12,7 @@
     <div class="app-container">
         <header>
             <h1>PreGame <span class="badge">BETA</span></h1>
-            <p>Select your sport to visualise risks and get a safety plan.</p>
+            <p>Select your sport to visualize risks and hear your safety plan.</p>
         </header>
 
         <div class="controls">
@@ -22,7 +22,6 @@
                 <option value="tennis">Tennis</option>
                 <option value="running">Running</option>
                 <option value="basketball">Basketball</option>
-               
             </select>
         </div>
 
@@ -37,7 +36,11 @@
             </div>
 
             <div class="card routine-card">
-                <h3>Pre-Game Activation</h3>
+                <div class="card-header">
+                    <h3>Pre-Game Activation</h3>
+                    <button onclick="speakRoutine()" class="voice-btn">🔊 Read Aloud</button>
+                </div>
+                
                 <p class="subtitle">Complete these to reduce injury risk.</p>
                 <ul id="exercise-list">
                     </ul>
