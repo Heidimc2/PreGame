@@ -19,24 +19,50 @@ body {
     text-align: center;
 }
 
-/* Header & Inputs */
 h1 { margin-bottom: 5px; color: #111; }
 .badge { background: #ff4757; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.5em; vertical-align: middle; }
 p { color: #666; margin-top: 0; }
 
-select {
-    padding: 12px 20px;
-    font-size: 16px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    width: 100%;
-    max-width: 400px;
-    margin: 20px 0;
-    cursor: pointer;
-    background: #fff;
+/* --- QUIZ STYLES --- */
+.quiz-section {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    margin-bottom: 20px;
+    text-align: left;
 }
 
-/* Dashboard */
+.risk-inputs label { font-weight: bold; display: block; margin-top: 15px; font-size: 14px; }
+.risk-inputs select {
+    padding: 12px;
+    width: 100%;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    margin-top: 5px;
+    cursor: pointer;
+    background: #fff;
+    font-size: 16px;
+}
+.risk-inputs select:focus { border-color: #4834d4; outline: none; }
+
+.analyze-btn {
+    width: 100%;
+    padding: 15px;
+    background: #4834d4; /* Purple */
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 25px;
+    transition: transform 0.1s;
+}
+.analyze-btn:hover { background: #3c2bb3; }
+.analyze-btn:active { transform: scale(0.98); }
+
+/* --- DASHBOARD --- */
 #dashboard {
     display: flex;
     flex-wrap: wrap;
@@ -67,10 +93,28 @@ select {
 #body-image { max-height: 100%; max-width: 100%; object-fit: contain; }
 .highlight { color: #ff4757; font-weight: bold; }
 
-/* Buttons */
-.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-.card-header h3 { margin: 0; }
+/* --- RISK RESULT BAR (BOTTOM) --- */
+.risk-bar {
+    margin-top: 30px;
+    background: #fff0f0;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #ffdcdc;
+}
+.risk-bar p { font-weight: bold; margin-bottom: 10px; color: #333; }
+.progress-bg {
+    background: #ddd;
+    height: 15px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+.progress-fill { height: 100%; background: #ff4757; width: 0%; transition: width 1s ease-out; }
+#risk-percent-text { margin: 0; font-size: 24px; color: #ff4757; }
 
+
+/* Buttons & Header */
+.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
 .voice-btn { background-color: #007bff; color: white; border: none; padding: 6px 12px; border-radius: 20px; cursor: pointer; font-size: 12px; font-weight: bold; }
 
 .start-btn {
@@ -85,51 +129,24 @@ select {
     cursor: pointer;
     margin-bottom: 20px;
     box-shadow: 0 4px 10px rgba(255, 71, 87, 0.3);
-    transition: transform 0.1s;
 }
-.start-btn:active { transform: scale(0.98); }
 
-/* --- NEW: FULL SCREEN OVERLAY MODE --- */
+/* Overlay */
 .overlay {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-color: #1e1e1e; /* Dark Mode Background */
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: #1e1e1e; z-index: 1000;
+    display: flex; justify-content: center; align-items: center; color: white;
 }
-
-.overlay-content {
-    text-align: center;
-    max-width: 500px;
-    width: 90%;
-}
-
+.overlay-content { text-align: center; max-width: 500px; width: 90%; }
 .timer-circle {
-    width: 150px; height: 150px;
-    border: 8px solid #ff4757;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 30px auto;
-    font-size: 60px;
-    font-weight: bold;
-    background: #2d2d2d;
-    box-shadow: 0 0 20px rgba(255, 71, 87, 0.5);
+    width: 150px; height: 150px; border: 8px solid #ff4757;
+    border-radius: 50%; display: flex; justify-content: center; align-items: center;
+    margin: 30px auto; font-size: 60px; font-weight: bold; background: #2d2d2d;
 }
-
-#wo-exercise-name { font-size: 32px; margin-bottom: 10px; color: white; }
-#wo-instruction { font-size: 18px; color: #aaa; margin-bottom: 30px; }
-
 .overlay-controls { display: flex; gap: 20px; justify-content: center; }
 .primary-btn { padding: 10px 30px; background: #ff4757; color: white; border: none; border-radius: 30px; font-size: 18px; cursor: pointer; }
 .secondary-btn { padding: 10px 20px; background: transparent; color: #888; border: 1px solid #555; border-radius: 30px; font-size: 16px; cursor: pointer; }
 
-/* Utilities */
 ul { padding-left: 20px; }
 li { margin-bottom: 12px; line-height: 1.5; }
 .hidden { display: none !important; }
