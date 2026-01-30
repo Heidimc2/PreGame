@@ -101,16 +101,22 @@
     <div id="workout-overlay" class="overlay hidden">
         <div class="overlay-content">
             <h2 id="wo-step-title">Exercise 1/3</h2>
-            <div class="timer-circle">
+            
+            <div id="timer-container" class="timer-circle">
                 <span id="wo-timer">30</span>
             </div>
+
             <h1 id="wo-exercise-name">Ready?</h1>
             <p id="wo-instruction">Get in position...</p>
-            <div class="overlay-controls">
+            
+            <div id="overlay-controls" class="overlay-controls">
                 <button onclick="quitWorkout()" class="secondary-btn">Quit</button>
-                <button onclick="togglePause()" id="pause-btn" class="secondary-btn" style="border-color: #f1c40f; color: #f1c40f;">❚❚ Pause</button>
+                <button onclick="togglePause()" id="pause-btn" class="secondary-btn" style="border-color: #f1c40f; color: #f1c40f;">Pause</button>
                 <button onclick="nextExercise(true)" class="primary-btn">Next ➔</button>
             </div>
+
+            <button id="finish-btn" onclick="quitWorkout()" class="primary-btn hidden" style="background-color: #2ecc71; margin-top: 20px;">Done! Return to Dashboard</button>
+
         </div>
     </div>
 
