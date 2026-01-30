@@ -82,33 +82,3 @@ function loadSport() {
         dashboard.classList.remove('hidden');
     }
 }
-function speakRoutine() {
-    // 1. RESET the voice engine (This fixes the silence bug)
-    window.speechSynthesis.cancel();
-
-    const sport = document.getElementById('sport-select').value;
-    
-    if (sportsData[sport]) {
-        const data = sportsData[sport];
-        
-        // Build the speech text
-        let speechText = `Starting Pre Game session for ${data.title}. Focus area is ${data.focus}. `;
-        
-        data.exercises.forEach((ex, index) => {
-            // Remove HTML tags so it doesn't say "Strong" or "Bold"
-            let cleanText = ex.replace(/<[^>]*>?/gm, ''); 
-            speechText += `Exercise ${index + 1}: ${cleanText}. `;
-        });
-
-        // Setup the speaker
-        const utterance = new SpeechSynthesisUtterance(speechText);
-        utterance.rate = 1.0; // Normal speed
-        utterance.pitch = 1;
-        utterance.volume = 1; // Max volume
-
-        // Speak
-        window.speechSynthesis.speak(utterance);
-    } else {
-        alert("Please select a sport first!");
-    }
-}
