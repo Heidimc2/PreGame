@@ -81,8 +81,6 @@ function speakRoutine() {
     }
 }
 
-// --- NEW: GUIDED WORKOUT LOGIC ---
-
 function startGuidedWorkout() {
     const sport = document.getElementById('sport-select').value;
     if (!sport) return;
@@ -98,16 +96,22 @@ function startGuidedWorkout() {
     runExerciseStep();
 }
 
-function runExerciseStep() {
+let isPaused = false; 
+
+function runExerciseStep() 
+{
     // Check if finished
     if (currentIndex >= currentRoutine.length) {
         finishWorkout();
         return;
     }
 
+    // Reset Pause State for new exercise
+    isPaused = false;
+    document.getElementById('pause-btn').innerText = "❚❚ Pause";
+
     // Get current exercise text
     const rawText = currentRoutine[currentIndex];
-    // Split text to get Name vs Instruction (assuming format "Name - Instruction")
     let parts = rawText.split("-");
     let name = parts[0];
     let instruction = parts[1] || "Keep steady form";
@@ -121,22 +125,40 @@ function runExerciseStep() {
     let msg = new SpeechSynthesisUtterance(name + ". " + instruction);
     window.speechSynthesis.speak(msg);
 
-    // Start Timer (e.g. 10 seconds for demo, change to 30 for real)
+    // Start Timer (15 seconds)
     let timeLeft = 15; 
     document.getElementById('wo-timer').innerText = timeLeft;
 
     // Clear any old timers
     if (timerInterval) clearInterval(timerInterval);
 
+    // --- THE NEW LOGIC ---
     timerInterval = setInterval(() => {
-        timeLeft--;
-        document.getElementById('wo-timer').innerText = timeLeft;
+        // Only count down if NOT paused
+        if (!isPaused) {
+            timeLeft--;
+            document.getElementById('wo-timer').innerText = timeLeft;
 
-        if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            nextExercise(); // Auto-advance
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                nextExercise(); // Auto-advance
+            }
         }
     }, 1000);
+}
+
+// --- NEW FUNCTION ---
+function togglePause() {
+    isPaused = !isPaused; // Switch between true and false
+    const btn = document.getElementById('pause-btn');
+    
+    if (isPaused) {
+        btn.innerText = "Resume";
+        // Optional: Speak "Paused"
+        window.speechSynthesis.cancel();
+    } else {
+        btn.innerText = "Pause";
+    }
 }
 
 function nextExercise(manualClick = false) {
