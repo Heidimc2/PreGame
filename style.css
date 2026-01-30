@@ -10,56 +10,70 @@ body {
 }
 
 .app-container {
-    max-width: 900px;
+    max-width: 800px;
     width: 100%;
     background: white;
-    padding: 30px;
+    padding: 40px;
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     text-align: center;
 }
 
-h1 { margin-bottom: 5px; color: #111; }
-.badge { background: #ff4757; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.5em; vertical-align: middle; }
+h1 { margin-bottom: 10px; color: #111; }
+.badge { background: #ff4757; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.5em; vertical-align: middle; }
 p { color: #666; margin-top: 0; }
 
-/* --- QUIZ STYLES --- */
+/* --- FIXED QUIZ STYLES --- */
 .quiz-section {
     background: #f8f9fa;
-    padding: 25px;
-    border-radius: 12px;
+    padding: 30px;
+    border-radius: 15px;
     border: 1px solid #eee;
-    margin-bottom: 20px;
-    text-align: left;
+    margin: 20px auto; /* Centers the box */
+    max-width: 500px; /* Keeps it from getting too wide */
+    text-align: left; /* Aligns text to left */
 }
 
-.risk-inputs label { font-weight: bold; display: block; margin-top: 15px; font-size: 14px; }
-.risk-inputs select {
+/* New Class to force stacking */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label { 
+    font-weight: bold; 
+    display: block; 
+    margin-bottom: 8px; 
+    font-size: 15px; 
+    color: #333;
+}
+
+select {
     padding: 12px;
     width: 100%;
     border: 2px solid #ddd;
     border-radius: 8px;
-    margin-top: 5px;
+    font-size: 16px;
     cursor: pointer;
     background: #fff;
-    font-size: 16px;
+    box-sizing: border-box; /* Fixes width issues */
 }
-.risk-inputs select:focus { border-color: #4834d4; outline: none; }
+select:focus { border-color: #4834d4; outline: none; }
 
 .analyze-btn {
     width: 100%;
     padding: 15px;
-    background: #4834d4; /* Purple */
+    background-color: #4834d4; /* Deep Purple */
     color: white;
     font-size: 18px;
     font-weight: bold;
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    margin-top: 25px;
+    margin-top: 10px;
     transition: transform 0.1s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
-.analyze-btn:hover { background: #3c2bb3; }
+.analyze-btn:hover { background-color: #3c2bb3; }
 .analyze-btn:active { transform: scale(0.98); }
 
 /* --- DASHBOARD --- */
@@ -67,7 +81,7 @@ p { color: #666; margin-top: 0; }
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    margin-top: 20px;
+    margin-top: 30px;
     text-align: left;
 }
 .card {
@@ -104,7 +118,7 @@ p { color: #666; margin-top: 0; }
 .risk-bar p { font-weight: bold; margin-bottom: 10px; color: #333; }
 .progress-bg {
     background: #ddd;
-    height: 15px;
+    height: 20px;
     border-radius: 10px;
     overflow: hidden;
     margin-bottom: 10px;
