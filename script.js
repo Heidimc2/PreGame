@@ -49,20 +49,19 @@ let isPaused = false;
 
 // 2. MAIN FUNCTION: Generate Plan & Risk
 function generatePlan() {
-    // A. Get inputs
     const sportSelect = document.getElementById('sport-select');
     const selectedSport = sportSelect.value;
     const errorBox = document.getElementById('error-box');
     
-    // --- THIS IS THE VALIDATION LOGIC YOU ASKED FOR ---
+    // --- ERROR CHECKING ---
     if (!selectedSport) {
-        errorBox.classList.remove('hidden'); // Show the red box
-        return; // Stop the code here
+        errorBox.classList.remove('hidden'); // Show red box
+        return; // Stop here
     } else {
-        errorBox.classList.add('hidden'); // Hide it if it's there
+        errorBox.classList.add('hidden'); // Hide it
     }
 
-    // B. Calculate Risk
+    // Calculate Risk
     const injuryScore = parseInt(document.getElementById('q-injury').value);
     const freqScore = parseInt(document.getElementById('q-freq').value);
     const warmupScore = parseInt(document.getElementById('q-warmup').value);
@@ -70,7 +69,7 @@ function generatePlan() {
     let totalRisk = 10 + injuryScore + freqScore + warmupScore;
     if (totalRisk > 95) totalRisk = 95;
 
-    // C. Update Risk Bar (Bottom)
+    // Show Risk Bar
     const resultBar = document.getElementById('risk-result-bar');
     const fill = document.getElementById('risk-fill');
     const text = document.getElementById('risk-percent-text');
@@ -92,16 +91,13 @@ function generatePlan() {
         }
     }, 100);
 
-    // D. Load The Dashboard (Middle)
     loadSportData(selectedSport);
 }
 
-// --- NEW FUNCTION: Hides error when user picks a sport ---
 function hideError() {
     document.getElementById('error-box').classList.add('hidden');
 }
 
-// Helper to load the heatmap and list
 function loadSportData(sportName) {
     const dashboard = document.getElementById('dashboard');
     const imageDisplay = document.getElementById('body-image');
@@ -125,7 +121,6 @@ function loadSportData(sportName) {
     }
 }
 
-// 3. Read Overview
 function speakRoutine() {
     window.speechSynthesis.cancel();
     const sport = document.getElementById('sport-select').value;
@@ -135,13 +130,18 @@ function speakRoutine() {
     }
 }
 
-// 4. Guided Workout
+// 4. Guided Workout Logic
 function startGuidedWorkout() {
     const sport = document.getElementById('sport-select').value;
     if (!sport) return;
 
     currentRoutine = sportsData[sport].exercises;
     currentIndex = 0;
+
+    // RESET UI: Show Timer, Show Controls, Hide Finish Button
+    document.getElementById('timer-container').classList.remove('hidden');
+    document.getElementById('overlay-controls').classList.remove('hidden');
+    document.getElementById('finish-btn').classList.add('hidden');
 
     document.getElementById('workout-overlay').classList.remove('hidden');
     runExerciseStep();
@@ -203,10 +203,25 @@ function nextExercise(manualClick = false) {
     runExerciseStep();
 }
 
+// --- NEW FINISH LOGIC (No Alert) ---
 function finishWorkout() {
     clearInterval(timerInterval);
-    document.getElementById('workout-overlay').classList.add('hidden');
-    alert("Workout Complete! Good luck in the game!");
+    
+    // Change Text to Success
+    document.getElementById('wo-step-title').innerText = "🎉";
+    document.getElementById('wo-exercise-name').innerText = "Workout Complete!";
+    document.getElementById('wo-instruction').innerText = "Good luck in the game!";
+    
+    // Hide Timer & Controls
+    document.getElementById('timer-container').classList.add('hidden');
+    document.getElementById('overlay-controls').classList.add('hidden');
+
+    // Show Finish Button
+    document.getElementById('finish-btn').classList.remove('hidden');
+
+    // Speak Success
+    let msg = new SpeechSynthesisUtterance("Workout Complete! Good luck!");
+    window.speechSynthesis.speak(msg);
 }
 
 function quitWorkout() {
