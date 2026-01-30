@@ -73,7 +73,7 @@ select:focus { border-color: #4834d4; outline: none; }
     transition: transform 0.1s;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
-.analyze-btn:hover { background-color: #3c2bb3; }
+.analyze-btn:hover { background-color: #ff4757; }
 .analyze-btn:active { transform: scale(0.98); }
 
 /* --- DASHBOARD --- */
