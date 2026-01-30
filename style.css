@@ -151,7 +151,7 @@ select:focus { border-color: #4834d4; outline: none; }
     background-color: #1e1e1e; z-index: 1000;
     display: flex; justify-content: center; align-items: center; color: white;
 }
-.overlay-content { text-align: center; max-width: 500px; width: 90%; }
+.overlay-content { text-align: center; max-width: 500px; width: 90%; color: white;}
 .timer-circle {
     width: 150px; height: 150px; border: 8px solid #ff4757;
     border-radius: 50%; display: flex; justify-content: center; align-items: center;
