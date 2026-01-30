@@ -19,7 +19,7 @@
             
             <div class="form-group">
                 <label>1. What sport are you playing?</label>
-                <select id="sport-select">
+                <select id="sport-select" onchange="hideError()">
                     <option value="" disabled selected>Choose a Sport...</option>
                     <option value="soccer">Soccer</option>
                     <option value="tennis">Tennis</option>
@@ -55,6 +55,10 @@
                 </select>
             </div>
 
+            <div id="error-box" class="error-msg hidden">
+                ⚠️ Please select a sport first!
+            </div>
+
             <button onclick="generatePlan()" class="analyze-btn">⚡ Generate Plan & Risk Score</button>
         </div>
 
@@ -71,7 +75,7 @@
             <div class="card routine-card">
                 <div class="card-header">
                     <h3>Pre-Game Activation</h3>
-                 
+                    <button onclick="speakRoutine()" class="voice-btn">🔊 Read Overview</button>
                 </div>
                 
                 <button onclick="startGuidedWorkout()" class="start-btn">▶ Start Guided Session</button>
