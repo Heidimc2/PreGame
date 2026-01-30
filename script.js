@@ -3,7 +3,7 @@ const sportsData = {
     soccer: {
         title: "Soccer",
         focus: "Knees (ACL) & Ankles",
-        image: "images/body-soccer.png",
+        image: "body-soccer.png",
         exercises: [
             "High Knees - Drive knees up to chest",
             "Glute Bridges - Squeeze glutes at the top",
@@ -13,7 +13,7 @@ const sportsData = {
     tennis: {
         title: "Tennis",
         focus: "Shoulders & Rotator Cuff",
-        image: "images/body-tennis.png",
+        image: "body-tennis.png",
         exercises: [
             "Arm Circles - Start small, get bigger",
             "Band Pull-Aparts - Squeeze shoulder blades",
@@ -23,7 +23,7 @@ const sportsData = {
     running: {
         title: "Running",
         focus: "Calves, Achilles & Hips",
-        image: "images/body-running.png",
+        image: "body-running.png",
         exercises: [
             "Calf Raises - Slow on the way down",
             "Leg Swings - Forward and back",
@@ -33,7 +33,7 @@ const sportsData = {
     basketball: {
         title: "Basketball",
         focus: "Ankles & Landing Mechanics",
-        image: "images/body-basketball.png",
+        image: "body-soccer.png",
         exercises: [
             "Ankle Rotations - Both directions",
             "Jump Squats - Land softly/silently",
