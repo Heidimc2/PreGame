@@ -13,7 +13,7 @@ const sportsData = {
     tennis: {
         title: "Tennis",
         focus: "Shoulders & Rotator Cuff",
-        image: "body-tennis.png",
+        image: "body-tennis.png.png",
         exercises: [
             "Arm Circles - Start small, get bigger",
             "Band Pull-Aparts - Squeeze shoulder blades",
